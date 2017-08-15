@@ -1,0 +1,29 @@
+<div class="row">
+    <div class="col-sm-10">
+        <h5>Name: @ViewBag.borrower.FirstName @ViewBag.borrower.LastName</h5>
+        <h5>Amount Needed: @ViewBag.borrower.Request</h5>
+        <h5>Amount Raised: @ViewBag.borrower.Received</h5>
+    </div>
+    <div class="col-sm-2">
+        <a href="logout">Log Out</a>
+    </div>
+</div>
+<div class="row">
+    <h1>List of People who Lent You Money</h1>
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Amount Lent</th>
+            <th>Date</th>
+        </tr>
+@foreach(var transaction in @ViewBag.transactions){
+    <tr>
+        <td>@transaction.Lender.FirstName @transaction.Lender.LastName</td>
+        <td>@transaction.Lender.Email</td>
+        <td>@transaction.Amount</td>
+        <td>@transaction.UpdatedAt</td>
+    </tr>
+}
+    </table>
+</div>

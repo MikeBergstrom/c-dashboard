@@ -1,0 +1,63 @@
+<div class="row">
+    <div class="col-sm-10">
+        <h5>Name: @ViewBag.lender.FirstName @ViewBag.lender.LastName</h5>
+        <h5>Account Balance: $@ViewBag.lender.Money </h5>
+    </div>
+    <div class="col-sm-2">
+        <a href="logout">Log Out</a>
+    </div>
+</div>
+<div class="row">
+    <h2>List of people who are in need of help:</h2>
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Money Needed for</th>
+            <th>Description</th>
+            <th>Amount Needed</th>
+            <th>Amount Raised</th>
+            <th>Action</th>
+        </tr>
+@foreach(var borrower in @ViewBag.borrowers){
+    <tr>
+        <td>@borrower.FirstName @borrower.LastName</td>
+        <td>@borrower.Title</td>
+        <td>@borrower.Description</td>
+        <td>@borrower.Request</td>
+        <td>@borrower.Received</td>
+        <td><form asp-controller="Account" asp-action="Lend" method="post">
+            <input type="number" name="Amount">
+            <input type="hidden" name="BorrowerId" value=@borrower.BorrowerId>
+            <input type="submit" value="Lend">
+            </form>
+        </td>
+    </tr>
+}
+    </table>
+    <p style="color:red">@ViewBag.error</p>
+</div>
+<div class="row">
+    <h2>List of People you Lent Money to:</h2>
+    <table class="table">
+        <tr>
+            <th>Name</th>
+            <th>Money Needed For:</th>
+            <th>Description</th>
+            <th>Amount Needed</th>
+            <th>Amount Raised</th>
+            <th>Amount Lent</th>
+            <th>Date</th>
+        </tr>
+@foreach(var transaction in @ViewBag.transactions){
+    <tr>
+        <td>@transaction.Borrower.FirstName @transaction.Borrower.LastName</td>
+        <td>@transaction.Borrower.Title</td>
+        <td>@transaction.Borrower.Description</td>
+        <td>@transaction.Borrower.Request</td>
+        <td>@transaction.Borrower.Received</td>
+        <td>@transaction.Amount</td>
+        <td>@transaction.UpdatedAt</td>
+    </tr>
+}
+    </table>
+</div>
